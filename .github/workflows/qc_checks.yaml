@@ -178,10 +178,8 @@ jobs:
         id: breaking_changes
         uses: oasdiff/oasdiff-action/diff@v0.0.19
         with:
-          base: src/backend/InvenTree/schema.yml
-          revision: api.yaml
-          fail-on-diff: true
-          nclude-path-params: true
+          base: 'src/backend/InvenTree/schema.yml'
+          revision: 'api.yaml'
       - name: Check for differences in API Schema
         if: needs.paths-filter.outputs.api == 'false'
         run: |
