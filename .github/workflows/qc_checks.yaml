@@ -180,6 +180,7 @@ jobs:
         with:
           base: 'src/backend/InvenTree/schema.yml'
           revision: 'api.yaml'
+          fail_on_diff: true
       - name: Check for differences in API Schema
         if: needs.paths-filter.outputs.api == 'false'
         run: |
