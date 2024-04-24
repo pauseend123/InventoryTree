@@ -31,6 +31,7 @@ import { ApiEndpoints } from '../enums/ApiEndpoints';
 import { ModelType } from '../enums/ModelType';
 import { InvenTreeIcon } from '../functions/icons';
 import { useCreateApiFormModal } from '../hooks/UseForm';
+import { useGenerator } from '../hooks/UseGenerator';
 import { apiUrl } from '../states/ApiState';
 
 /*
@@ -204,6 +205,12 @@ function LineItemFormRow({
     input.changeFn(input.idx, 'location', location);
   }, [location]);
 
+  const batchCodeGenerator = useGenerator(
+    ApiEndpoints.stock_generate_batch_code,
+    'batch_code',
+    (value: any) => setBatchCode(value)
+  );
+
   // State for serializing
   const [batchCode, setBatchCode] = useState<string>('');
   const [serials, setSerials] = useState<string>('');
@@ -211,6 +218,13 @@ function LineItemFormRow({
     onClose: () => {
       input.changeFn(input.idx, 'batch_code', '');
       input.changeFn(input.idx, 'serial_numbers', '');
+    },
+    onOpen: () => {
+      // Generate a new batch code
+      batchCodeGenerator.update({
+        part: record?.supplier_part_detail?.part,
+        order: record?.order
+      });
     }
   });
 
