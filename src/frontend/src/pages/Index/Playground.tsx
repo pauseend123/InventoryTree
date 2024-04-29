@@ -4,14 +4,16 @@ import { Group, Text } from '@mantine/core';
 import { Accordion } from '@mantine/core';
 import { spotlight } from '@mantine/spotlight';
 import { IconAlien } from '@tabler/icons-react';
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { OptionsApiForm } from '../../components/forms/ApiForm';
+import ImporterDrawer from '../../components/importer/ImporterDrawer';
 import { PlaceholderPill } from '../../components/items/Placeholder';
 import { StylishText } from '../../components/items/StylishText';
 import { StatusRenderer } from '../../components/render/StatusRenderer';
 import { ApiEndpoints } from '../../enums/ApiEndpoints';
 import { ModelType } from '../../enums/ModelType';
+import { dataImporterSessionFields } from '../../forms/ImporterForms';
 import { partCategoryFields, usePartFields } from '../../forms/PartForms';
 import { useCreateStockItem } from '../../forms/StockForms';
 import {
@@ -169,6 +171,45 @@ function StatusLabelPlayground() {
   );
 }
 
+// Data importing
+function DataImportingPlayground() {
+  const [opened, setOpened] = useState<boolean>(false);
+
+  const importSessionFields = dataImporterSessionFields();
+
+  const [importSessionId, setImportSessionId] = useState<number>(0);
+
+  const createNewImportSession = useCreateApiFormModal({
+    url: ApiEndpoints.import_session_list,
+    title: 'Create Import Session',
+    fields: importSessionFields,
+    initialData: {
+      parent: 1,
+      model: 'partcategory'
+    },
+    onFormSuccess: (response: any) => {
+      setImportSessionId(response.pk);
+      setOpened(true);
+    }
+  });
+
+  const openDrawer = useCallback(() => {
+    createNewImportSession.open();
+  }, []);
+
+  return (
+    <>
+      {createNewImportSession.modal}
+      <Button onClick={() => openDrawer()}>Open Importer</Button>
+      <ImporterDrawer
+        sessionId={importSessionId}
+        opened={opened}
+        onClose={() => setOpened(false)}
+      />
+    </>
+  );
+}
+
 // Sample for spotlight actions
 function SpotlighPlayground() {
   return (
@@ -240,6 +281,10 @@ export default function Playground() {
         <PlaygroundArea
           title="Status labels"
           content={<StatusLabelPlayground />}
+        />
+        <PlaygroundArea
+          title="Data Import"
+          content={<DataImportingPlayground />}
         />
         <PlaygroundArea
           title="Spotlight actions"

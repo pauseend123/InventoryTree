@@ -199,7 +199,8 @@ class InvenTreeMetadata(SimpleMetadata):
 
         if instance is None and model_class is not None:
             # Attempt to find the instance based on kwargs lookup
-            kwargs = getattr(self.view, 'kwargs', None)
+            view = getattr(self, 'view', None)
+            kwargs = getattr(view, 'kwargs', None) if view else None
 
             if kwargs:
                 pk = None
@@ -282,8 +283,11 @@ class InvenTreeMetadata(SimpleMetadata):
                     field_info['api_url'] = '/api/user/'
                 elif field_info['model'] == 'contenttype':
                     field_info['api_url'] = '/api/contenttype/'
-                else:
+                elif hasattr(model, 'get_api_url'):
                     field_info['api_url'] = model.get_api_url()
+                else:
+                    logger.warning("'get_api_url' method not defined for %s", model)
+                    field_info['api_url'] = getattr(model, 'api_url', None)
 
         # Add more metadata about dependent fields
         if field_info['type'] == 'dependent field':

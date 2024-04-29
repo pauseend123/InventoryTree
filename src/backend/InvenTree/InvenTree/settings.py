@@ -193,6 +193,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'company.apps.CompanyConfig',
     'plugin.apps.PluginAppConfig',  # Plugin app runs before all apps that depend on the isPluginRegistryLoaded function
+    'importer.apps.ImporterConfig',
     'label.apps.LabelConfig',
     'order.apps.OrderConfig',
     'part.apps.PartConfig',
@@ -284,7 +285,7 @@ QUERYCOUNT = {
     },
     'IGNORE_REQUEST_PATTERNS': ['^(?!\/(api)?(plugin)?\/).*'],
     'IGNORE_SQL_PATTERNS': [],
-    'DISPLAY_DUPLICATES': 3,
+    'DISPLAY_DUPLICATES': None,
     'RESPONSE_HEADER': 'X-Django-Query-Count',
 }
 
