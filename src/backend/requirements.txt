@@ -335,7 +335,6 @@ django==4.2.11 \
     # via
     #   dj-rest-auth
     #   django-allauth
-    #   django-allauth-2fa
     #   django-cors-headers
     #   django-dbbackup
     #   django-error-report-2
@@ -363,12 +362,8 @@ django==4.2.11 \
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-spectacular
-django-allauth==0.61.1 \
+django-allauth[mfa]==0.61.1 \
     --hash=sha256:5b4ae515ea74f54f0041210692eee10c309ad15ddbbd03d3620693c75e3f7945
-    # via django-allauth-2fa
-django-allauth-2fa==0.11.1 \
-    --hash=sha256:02ffdf1025836f072c2f6ec0964494589cf1d52362f663f9ff6d9ca61a7b6962 \
-    --hash=sha256:2f2d61dd488f66ad45e59780b061f5abe96caea9c3466e3ee4ea50ea1faebef6
 django-cleanup==8.1.0 \
     --hash=sha256:70df905076a44e7a111b31198199af633dee08876e199e6dce36ca8dd6b8b10f \
     --hash=sha256:7903873ea73b3f7e61e055340d27dba49b70634f60c87a573ad748e172836458
@@ -418,7 +413,6 @@ django-mptt==0.16.0 \
 django-otp==1.3.0 \
     --hash=sha256:5277731bc05b6cdbf96aa84ac46018e30ed5fb248086053b0146f925de059060 \
     --hash=sha256:8f4156a3c14ce2aaa31379385eadf388925cd50fc4b5d20a3b944f454c98ff7c
-    # via django-allauth-2fa
 django-picklefield==3.2 \
     --hash=sha256:aa463f5d79d497dbe789f14b45180f00a51d0d670067d0729f352a3941cdfa4d \
     --hash=sha256:e9a73539d110f69825d9320db18bcb82e5189ff48dbed41821c026a20497764c
@@ -1073,7 +1067,7 @@ pyyaml==6.0.1 \
 qrcode[pil]==7.4.2 \
     --hash=sha256:581dca7a029bcb2deef5d01068e39093e80ef00b4a61098a2182eac59d01643a \
     --hash=sha256:9dd969454827e127dbd93696b20747239e6d540e082937c90f14ac95b30f5845
-    # via django-allauth-2fa
+    # via django-allauth
 rapidfuzz==3.8.1 \
     --hash=sha256:00b5ee47b387fa3805f4038362a085ec58149135dc5bc640ca315a9893a16f9e \
     --hash=sha256:0798e32304b8009d215026bf7e1c448f1831da0a03987b7de30059a41bee92f3 \
