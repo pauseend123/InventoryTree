@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inventree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 12:55+0000\n"
+"POT-Creation-Date: 2024-05-01 23:42+0000\n"
 "PO-Revision-Date: 2023-02-28 22:38\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1101,7 +1101,7 @@ msgid "BuildOrder to which this build is allocated"
 msgstr "此次生产匹配的订单"
 
 #: build/models.py:205 build/templates/build/build_base.html:97
-#: build/templates/build/detail.html:29 company/models.py:1058 order/api.py:817
+#: build/templates/build/detail.html:29 company/models.py:1058 order/api.py:821
 #: order/models.py:1401 order/models.py:1546 order/models.py:1547
 #: part/api.py:1547 part/api.py:1841 part/models.py:390 part/models.py:3004
 #: part/models.py:3148 part/models.py:3292 part/models.py:3315
@@ -1205,7 +1205,7 @@ msgstr "生产状态"
 msgid "Build status code"
 msgstr "生产状态代码"
 
-#: build/models.py:270 build/serializers.py:280 order/serializers.py:577
+#: build/models.py:270 build/serializers.py:280 order/serializers.py:581
 #: stock/models.py:823 stock/serializers.py:1333
 #: templates/js/translated/purchase_order.js:1129
 msgid "Batch Code"
@@ -1215,8 +1215,8 @@ msgstr "批量代码"
 msgid "Batch code for this build output"
 msgstr "此生产产出的批量代码"
 
-#: build/models.py:277 order/models.py:304 part/models.py:1079
-#: part/templates/part/part_base.html:310
+#: build/models.py:277 order/models.py:304 order/serializers.py:120
+#: part/models.py:1079 part/templates/part/part_base.html:310
 #: templates/js/translated/return_order.js:339
 #: templates/js/translated/sales_order.js:827
 msgid "Creation Date"
@@ -1327,8 +1327,8 @@ msgid "Build output does not match Build Order"
 msgstr "生产产出与订单不匹配"
 
 #: build/models.py:884 build/serializers.py:223 build/serializers.py:262
-#: build/serializers.py:831 order/models.py:538 order/serializers.py:429
-#: order/serializers.py:572 part/serializers.py:1471 part/serializers.py:1871
+#: build/serializers.py:831 order/models.py:538 order/serializers.py:433
+#: order/serializers.py:576 part/serializers.py:1471 part/serializers.py:1871
 #: stock/models.py:662 stock/models.py:1474 stock/serializers.py:472
 msgid "Quantity must be greater than zero"
 msgstr "数量必须大于0"
@@ -1353,7 +1353,7 @@ msgstr "生产备注"
 #: build/models.py:1322 build/models.py:1578 build/serializers.py:210
 #: build/serializers.py:247 build/templates/build/build_base.html:102
 #: build/templates/build/detail.html:34 common/models.py:2516
-#: order/models.py:1259 order/models.py:1918 order/serializers.py:1335
+#: order/models.py:1259 order/models.py:1918 order/serializers.py:1339
 #: order/templates/order/order_wizard/match_parts.html:30 part/admin.py:416
 #: part/forms.py:48 part/models.py:3162 part/models.py:4035
 #: part/templates/part/part_pricing.html:16
@@ -1430,8 +1430,8 @@ msgstr "序列化库存的数量必须是 1"
 msgid "Selected stock item does not match BOM line"
 msgstr "在BOM中找不到选定的库存项"
 
-#: build/models.py:1565 build/serializers.py:811 order/serializers.py:1179
-#: order/serializers.py:1200 stock/serializers.py:566 stock/serializers.py:1052
+#: build/models.py:1565 build/serializers.py:811 order/serializers.py:1183
+#: order/serializers.py:1204 stock/serializers.py:566 stock/serializers.py:1052
 #: stock/serializers.py:1164 stock/templates/stock/item_base.html:10
 #: stock/templates/stock/item_base.html:23
 #: stock/templates/stock/item_base.html:194
@@ -1496,7 +1496,7 @@ msgstr "对于可追踪的部件，需要整数型数值"
 msgid "Integer quantity required, as the bill of materials contains trackable parts"
 msgstr "需要整数型数值，因为BOM包含可追踪的部件"
 
-#: build/serializers.py:287 order/serializers.py:585 order/serializers.py:1339
+#: build/serializers.py:287 order/serializers.py:589 order/serializers.py:1343
 #: stock/serializers.py:483 templates/js/translated/purchase_order.js:1153
 #: templates/js/translated/stock.js:367 templates/js/translated/stock.js:565
 msgid "Serial Numbers"
@@ -1522,8 +1522,8 @@ msgstr "以下序列号已存在或无效"
 msgid "A list of build outputs must be provided"
 msgstr "必须提供生产产出列表"
 
-#: build/serializers.py:426 build/serializers.py:498 order/serializers.py:561
-#: order/serializers.py:669 order/serializers.py:1675 part/serializers.py:1127
+#: build/serializers.py:426 build/serializers.py:498 order/serializers.py:565
+#: order/serializers.py:673 order/serializers.py:1679 part/serializers.py:1127
 #: stock/serializers.py:494 stock/serializers.py:654 stock/serializers.py:750
 #: stock/serializers.py:1196 stock/serializers.py:1452
 #: stock/templates/stock/item_base.html:394
@@ -1570,7 +1570,7 @@ msgstr "已完成生产产出的仓储地点"
 
 #: build/serializers.py:505 build/templates/build/build_base.html:151
 #: build/templates/build/detail.html:62 order/models.py:922
-#: order/models.py:2022 order/serializers.py:593 stock/admin.py:165
+#: order/models.py:2022 order/serializers.py:597 stock/admin.py:165
 #: stock/serializers.py:801 stock/serializers.py:1340
 #: stock/templates/stock/item_base.html:427
 #: templates/js/translated/barcode.js:252 templates/js/translated/build.js:2189
@@ -1643,7 +1643,7 @@ msgstr "接受库存项未被完成分配至此生产订单"
 msgid "Required stock has not been fully allocated"
 msgstr "所需库存尚未完全分配"
 
-#: build/serializers.py:684 order/serializers.py:297 order/serializers.py:1242
+#: build/serializers.py:684 order/serializers.py:301 order/serializers.py:1246
 msgid "Accept Incomplete"
 msgstr "接受未完成"
 
@@ -1687,7 +1687,7 @@ msgstr "bom_item.part 必须与生产订单指向相同的部件"
 msgid "Item must be in stock"
 msgstr "项目必须在库存中"
 
-#: build/serializers.py:865 order/serializers.py:1233
+#: build/serializers.py:865 order/serializers.py:1237
 #, python-brace-format
 msgid "Available quantity ({q}) exceeded"
 msgstr "可用量 ({q}) 超出了限制"
@@ -1700,7 +1700,7 @@ msgstr "对于被追踪的部件的分配，必须指定生产产出"
 msgid "Build output cannot be specified for allocation of untracked parts"
 msgstr "对于未被追踪的部件，无法指定生产产出"
 
-#: build/serializers.py:902 order/serializers.py:1485
+#: build/serializers.py:902 order/serializers.py:1489
 msgid "Allocation items must be provided"
 msgstr "必须提供分配的项"
 
@@ -1935,7 +1935,7 @@ msgid "Completed Outputs"
 msgstr "已完成输出"
 
 #: build/templates/build/build_base.html:190
-#: build/templates/build/detail.html:101 order/api.py:1507 order/models.py:1538
+#: build/templates/build/detail.html:101 order/api.py:1511 order/models.py:1538
 #: order/models.py:1652 order/models.py:1806
 #: order/templates/order/sales_order_base.html:9
 #: order/templates/order/sales_order_base.html:28
@@ -3890,7 +3890,7 @@ msgstr ""
 msgid "A order that is assigned to you was canceled"
 msgstr ""
 
-#: common/notifications.py:330 common/notifications.py:337 order/api.py:468
+#: common/notifications.py:330 common/notifications.py:337 order/api.py:472
 msgid "Items Received"
 msgstr ""
 
@@ -4740,7 +4740,7 @@ msgid "Delete manufacturer part"
 msgstr "删除生产商商品"
 
 #: company/templates/company/manufacturer_part.html:65
-#: company/templates/company/supplier_part.html:97 order/api.py:454
+#: company/templates/company/supplier_part.html:97 order/api.py:458
 msgid "Internal Part"
 msgstr "内部商品"
 
@@ -4804,7 +4804,7 @@ msgid "Addresses"
 msgstr "地址"
 
 #: company/templates/company/supplier_part.html:7
-#: company/templates/company/supplier_part.html:24 order/api.py:448
+#: company/templates/company/supplier_part.html:24 order/api.py:452
 #: stock/models.py:762 stock/templates/stock/item_base.html:233
 #: templates/js/translated/company.js:1600
 #: templates/js/translated/purchase_order.js:752
@@ -5047,7 +5047,7 @@ msgstr "要生产的项目数量"
 msgid "Connected"
 msgstr "连接错误"
 
-#: machine/machine_types/label_printer.py:234 order/api.py:1511
+#: machine/machine_types/label_printer.py:234 order/api.py:1515
 #: templates/js/translated/sales_order.js:1042
 msgid "Unknown"
 msgstr ""
@@ -5159,41 +5159,42 @@ msgstr ""
 msgid "Total Price"
 msgstr ""
 
-#: order/api.py:157 order/templates/order/order_base.html:118
+#: order/api.py:161 order/serializers.py:91
+#: order/templates/order/order_base.html:118
 #: order/templates/order/return_order_base.html:113
 #: order/templates/order/sales_order_base.html:118
 msgid "Order Status"
 msgstr ""
 
-#: order/api.py:161 templates/js/translated/table_filters.js:194
+#: order/api.py:165 templates/js/translated/table_filters.js:194
 #: templates/js/translated/table_filters.js:779
 msgid "Has Pricing"
 msgstr ""
 
-#: order/api.py:236
+#: order/api.py:240
 msgid "No matching purchase order found"
 msgstr ""
 
-#: order/api.py:433 order/api.py:813 order/models.py:1382 order/models.py:1491
+#: order/api.py:437 order/api.py:817 order/models.py:1382 order/models.py:1491
 #: order/models.py:1537 order/models.py:1651 order/models.py:1805
 #: order/models.py:2209 order/models.py:2260
 #: templates/js/translated/sales_order.js:1488
 msgid "Order"
 msgstr ""
 
-#: order/api.py:437 order/api.py:834
+#: order/api.py:441 order/api.py:838
 #, fuzzy
 #| msgid "Order Code"
 msgid "Order Complete"
 msgstr "订单编码"
 
-#: order/api.py:458
+#: order/api.py:462
 #, fuzzy
 #| msgid "Pending"
 msgid "Order Pending"
 msgstr "待定"
 
-#: order/api.py:1505 order/models.py:1383 order/models.py:1492
+#: order/api.py:1509 order/models.py:1383 order/models.py:1492
 #: order/templates/order/order_base.html:9
 #: order/templates/order/order_base.html:18
 #: report/templates/report/inventree_po_report_base.html:14
@@ -5207,7 +5208,7 @@ msgstr "待定"
 msgid "Purchase Order"
 msgstr ""
 
-#: order/api.py:1509 order/models.py:2210 order/models.py:2261
+#: order/api.py:1513 order/models.py:2210 order/models.py:2261
 #: order/templates/order/return_order_base.html:9
 #: order/templates/order/return_order_base.html:28
 #: report/templates/report/inventree_return_order_report_base.html:13
@@ -5480,8 +5481,8 @@ msgstr ""
 msgid "User who checked this shipment"
 msgstr ""
 
-#: order/models.py:1682 order/models.py:1895 order/serializers.py:1350
-#: order/serializers.py:1460 templates/js/translated/model_renderers.js:448
+#: order/models.py:1682 order/models.py:1895 order/serializers.py:1354
+#: order/serializers.py:1464 templates/js/translated/model_renderers.js:448
 msgid "Shipment"
 msgstr ""
 
@@ -5529,7 +5530,7 @@ msgstr ""
 msgid "Allocation quantity cannot exceed stock quantity"
 msgstr ""
 
-#: order/models.py:1875 order/serializers.py:1227
+#: order/models.py:1875 order/serializers.py:1231
 msgid "Quantity must be 1 for serialized stock item"
 msgstr ""
 
@@ -5609,169 +5610,184 @@ msgstr ""
 msgid "Cost associated with return or repair for this line item"
 msgstr ""
 
-#: order/serializers.py:283
+#: order/serializers.py:80 order/templates/order/po_sidebar.html:5
+#: order/templates/order/return_order_detail.html:18
+#: order/templates/order/so_sidebar.html:5
+#: report/templates/report/inventree_po_report_base.html:22
+#: report/templates/report/inventree_return_order_report_base.html:19
+#: report/templates/report/inventree_so_report_base.html:22
+msgid "Line Items"
+msgstr ""
+
+#: order/serializers.py:84
+#, fuzzy
+#| msgid "Completed items"
+msgid "Completed Lines"
+msgstr "已完成项目"
+
+#: order/serializers.py:287
 msgid "Order cannot be cancelled"
 msgstr "无法取消订单"
 
-#: order/serializers.py:298 order/serializers.py:1243
+#: order/serializers.py:302 order/serializers.py:1247
 msgid "Allow order to be closed with incomplete line items"
 msgstr ""
 
-#: order/serializers.py:308 order/serializers.py:1253
+#: order/serializers.py:312 order/serializers.py:1257
 msgid "Order has incomplete line items"
 msgstr ""
 
-#: order/serializers.py:436
+#: order/serializers.py:440
 msgid "Order is not open"
 msgstr ""
 
-#: order/serializers.py:457
+#: order/serializers.py:461
 #, fuzzy
 #| msgid "Part Pricing"
 msgid "Auto Pricing"
 msgstr "商品价格"
 
-#: order/serializers.py:459
+#: order/serializers.py:463
 msgid "Automatically calculate purchase price based on supplier part data"
 msgstr ""
 
-#: order/serializers.py:469
+#: order/serializers.py:473
 msgid "Purchase price currency"
 msgstr ""
 
-#: order/serializers.py:475
+#: order/serializers.py:479
 #, fuzzy
 #| msgid "Select Stock Items"
 msgid "Merge Items"
 msgstr "选择库存项"
 
-#: order/serializers.py:477
+#: order/serializers.py:481
 msgid "Merge items with the same part, destination and target date into one line item"
 msgstr ""
 
-#: order/serializers.py:495
+#: order/serializers.py:499
 msgid "Supplier part must be specified"
 msgstr ""
 
-#: order/serializers.py:498
+#: order/serializers.py:502
 msgid "Purchase order must be specified"
 msgstr ""
 
-#: order/serializers.py:506
+#: order/serializers.py:510
 msgid "Supplier must match purchase order"
 msgstr ""
 
-#: order/serializers.py:507
+#: order/serializers.py:511
 msgid "Purchase order must match supplier"
 msgstr ""
 
-#: order/serializers.py:546 order/serializers.py:1321
+#: order/serializers.py:550 order/serializers.py:1325
 msgid "Line Item"
 msgstr ""
 
-#: order/serializers.py:552
+#: order/serializers.py:556
 msgid "Line item does not match purchase order"
 msgstr ""
 
-#: order/serializers.py:562 order/serializers.py:670 order/serializers.py:1676
+#: order/serializers.py:566 order/serializers.py:674 order/serializers.py:1680
 msgid "Select destination location for received items"
 msgstr ""
 
-#: order/serializers.py:578 templates/js/translated/purchase_order.js:1130
+#: order/serializers.py:582 templates/js/translated/purchase_order.js:1130
 msgid "Enter batch code for incoming stock items"
 msgstr ""
 
-#: order/serializers.py:586 templates/js/translated/purchase_order.js:1154
+#: order/serializers.py:590 templates/js/translated/purchase_order.js:1154
 msgid "Enter serial numbers for incoming stock items"
 msgstr ""
 
-#: order/serializers.py:597 templates/js/translated/barcode.js:52
+#: order/serializers.py:601 templates/js/translated/barcode.js:52
 msgid "Barcode"
 msgstr "条形码"
 
-#: order/serializers.py:598
+#: order/serializers.py:602
 #, fuzzy
 #| msgid "Scan Barcode"
 msgid "Scanned barcode"
 msgstr "扫描条形码"
 
-#: order/serializers.py:614
+#: order/serializers.py:618
 msgid "Barcode is already in use"
 msgstr ""
 
-#: order/serializers.py:638
+#: order/serializers.py:642
 msgid "An integer quantity must be provided for trackable parts"
 msgstr ""
 
-#: order/serializers.py:686 order/serializers.py:1692
+#: order/serializers.py:690 order/serializers.py:1696
 msgid "Line items must be provided"
 msgstr ""
 
-#: order/serializers.py:702
+#: order/serializers.py:706
 msgid "Destination location must be specified"
 msgstr ""
 
-#: order/serializers.py:713
+#: order/serializers.py:717
 msgid "Supplied barcode values must be unique"
 msgstr ""
 
-#: order/serializers.py:1070
+#: order/serializers.py:1074
 msgid "Sale price currency"
 msgstr ""
 
-#: order/serializers.py:1130
+#: order/serializers.py:1134
 msgid "No shipment details provided"
 msgstr ""
 
-#: order/serializers.py:1191 order/serializers.py:1330
+#: order/serializers.py:1195 order/serializers.py:1334
 msgid "Line item is not associated with this order"
 msgstr ""
 
-#: order/serializers.py:1210
+#: order/serializers.py:1214
 msgid "Quantity must be positive"
 msgstr ""
 
-#: order/serializers.py:1340
+#: order/serializers.py:1344
 msgid "Enter serial numbers to allocate"
 msgstr ""
 
-#: order/serializers.py:1362 order/serializers.py:1468
+#: order/serializers.py:1366 order/serializers.py:1472
 msgid "Shipment has already been shipped"
 msgstr ""
 
-#: order/serializers.py:1365 order/serializers.py:1471
+#: order/serializers.py:1369 order/serializers.py:1475
 msgid "Shipment is not associated with this order"
 msgstr ""
 
-#: order/serializers.py:1412
+#: order/serializers.py:1416
 msgid "No match found for the following serial numbers"
 msgstr ""
 
-#: order/serializers.py:1419
+#: order/serializers.py:1423
 msgid "The following serial numbers are already allocated"
 msgstr ""
 
-#: order/serializers.py:1646
+#: order/serializers.py:1650
 msgid "Return order line item"
 msgstr ""
 
-#: order/serializers.py:1652
+#: order/serializers.py:1656
 #, fuzzy
 #| msgid "Build output does not match Build Order"
 msgid "Line item does not match return order"
 msgstr "生产产出与订单不匹配"
 
-#: order/serializers.py:1655
+#: order/serializers.py:1659
 #, fuzzy
 #| msgid "This build output has already been completed"
 msgid "Line item has already been received"
 msgstr "此生产产出已经完成"
 
-#: order/serializers.py:1684
+#: order/serializers.py:1688
 msgid "Items can only be received against orders which are in progress"
 msgstr ""
 
-#: order/serializers.py:1762
+#: order/serializers.py:1766
 #, fuzzy
 #| msgid "Uses default currency"
 msgid "Line price currency"
@@ -6005,15 +6021,6 @@ msgstr ""
 #, python-format
 msgid "Step %(step)s of %(count)s"
 msgstr "步骤 %(step)s / %(count)s"
-
-#: order/templates/order/po_sidebar.html:5
-#: order/templates/order/return_order_detail.html:18
-#: order/templates/order/so_sidebar.html:5
-#: report/templates/report/inventree_po_report_base.html:22
-#: report/templates/report/inventree_return_order_report_base.html:19
-#: report/templates/report/inventree_so_report_base.html:22
-msgid "Line Items"
-msgstr ""
 
 #: order/templates/order/po_sidebar.html:7
 msgid "Received Stock"

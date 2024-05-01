@@ -14254,4 +14254,3 @@ msgstr "Parçaları düzenleme izni"
 #: users/models.py:426
 msgid "Permission to delete items"
 msgstr "Parçaları silme izni"
-

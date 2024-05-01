@@ -14254,4 +14254,3 @@ msgstr "Uprawnienie do edycji przedmiotów"
 #: users/models.py:426
 msgid "Permission to delete items"
 msgstr "Uprawnienie do usuwania przedmiotów"
-

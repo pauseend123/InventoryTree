@@ -14254,4 +14254,3 @@ msgstr "Oikeus muokata kohteita"
 #: users/models.py:426
 msgid "Permission to delete items"
 msgstr "Oikeus poistaa kohteita"
-

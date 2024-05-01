@@ -14254,4 +14254,3 @@ msgstr "Tillatelse til å endre elementer"
 #: users/models.py:426
 msgid "Permission to delete items"
 msgstr "Tillatelse til å slette elementer"
-
