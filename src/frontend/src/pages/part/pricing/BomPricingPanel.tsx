@@ -149,7 +149,7 @@ export default function BomPricingPanel({
           let units = record.sub_part_detail?.units;
 
           return (
-            <Group spacing="apart" grow>
+            <Group justify="space-between" grow>
               <Text>{quantity}</Text>
               {units && <Text size="xs">[{units}]</Text>}
             </Group>
@@ -210,7 +210,7 @@ export default function BomPricingPanel({
   const [chartType, setChartType] = useState<string>('pie');
 
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       <SimpleGrid cols={2}>
         <InvenTreeTable
           tableState={table}
@@ -228,7 +228,7 @@ export default function BomPricingPanel({
           }}
         />
         {bomPricingData.length > 0 ? (
-          <Stack spacing="xs">
+          <Stack gap="xs">
             {chartType == 'bar' && (
               <BomBarChart data={bomPricingData} currency={pricing?.currency} />
             )}

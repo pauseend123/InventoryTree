@@ -10,24 +10,24 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 
 import { doLogout } from '../../functions/auth';
-import { InvenTreeStyle } from '../../globalStyle';
+import * as classes from '../../main.css';
 import { useUserState } from '../../states/UserState';
+import { vars } from '../../theme';
 
 export function MainMenu() {
   const navigate = useNavigate();
-  const { classes, theme } = InvenTreeStyle();
   const userState = useUserState();
 
   return (
     <Menu width={260} position="bottom-end">
       <Menu.Target>
         <UnstyledButton className={classes.layoutHeaderUser}>
-          <Group spacing={7}>
-            <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
+          <Group gap={7}>
+            <Text fw={500} size="sm" style={{ lineHeight: 1 }} mr={3}>
               {userState.username() ? (
                 userState.username()
               ) : (
-                <Skeleton height={20} width={40} radius={theme.defaultRadius} />
+                <Skeleton height={20} width={40} radius={vars.radiusDefault} />
               )}
             </Text>
             <IconChevronDown />
@@ -38,12 +38,16 @@ export function MainMenu() {
         <Menu.Label>
           <Trans>Settings</Trans>
         </Menu.Label>
-        <Menu.Item icon={<IconUserCog />} component={Link} to="/settings/user">
+        <Menu.Item
+          leftSection={<IconUserCog />}
+          component={Link}
+          to="/settings/user"
+        >
           <Trans>Account settings</Trans>
         </Menu.Item>
         {userState.user?.is_staff && (
           <Menu.Item
-            icon={<IconSettings />}
+            leftSection={<IconSettings />}
             component={Link}
             to="/settings/system"
           >
@@ -53,7 +57,7 @@ export function MainMenu() {
         {userState.user?.is_staff && <Menu.Divider />}
         {userState.user?.is_staff && (
           <Menu.Item
-            icon={<IconUserBolt />}
+            leftSection={<IconUserBolt />}
             component={Link}
             to="/settings/admin"
           >
@@ -62,7 +66,7 @@ export function MainMenu() {
         )}
         <Menu.Divider />
         <Menu.Item
-          icon={<IconLogout />}
+          leftSection={<IconLogout />}
           onClick={() => {
             doLogout(navigate);
           }}

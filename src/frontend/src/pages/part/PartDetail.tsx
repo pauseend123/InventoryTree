@@ -446,7 +446,7 @@ export default function PartDetail() {
             />
           </Grid.Col>
           <Grid.Col span={8}>
-            <Stack spacing="xs">
+            <Stack gap="xs">
               <table>
                 <tbody>
                   <tr>
@@ -775,7 +775,7 @@ export default function PartDetail() {
     <>
       {duplicatePart.modal}
       {editPart.modal}
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <LoadingOverlay visible={instanceQuery.isFetching} />
         <PartCategoryTree
           opened={treeOpen}

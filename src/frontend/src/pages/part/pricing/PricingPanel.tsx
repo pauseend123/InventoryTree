@@ -17,7 +17,7 @@ import { panelOptions } from '../PartPricingPanel';
 
 function AccordionControl(props: AccordionControlProps) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box style={{ display: 'flex', alignItems: 'center' }}>
       {props.disabled && (
         <Tooltip
           label={t`No data available`}
@@ -60,7 +60,7 @@ export default function PricingPanel({
 
 export function NoPricingData() {
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       <Alert icon={<IconExclamationCircle />} color="blue" title={t`No Data`}>
         <Text>{t`No pricing data available`}</Text>
       </Alert>

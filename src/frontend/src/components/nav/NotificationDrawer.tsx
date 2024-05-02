@@ -67,20 +67,21 @@ export function NotificationDrawer({
         }
       }}
       title={
-        <Group position="apart" noWrap={true}>
+        <Group justify="space-between" wrap="nowrap">
           <StylishText size="lg">{t`Notifications`}</StylishText>
           <ActionIcon
             onClick={() => {
               onClose();
               navigate('/notifications/unread');
             }}
+            variant="transparent"
           >
             <IconBellPlus />
           </ActionIcon>
         </Group>
       }
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <Divider />
         <LoadingOverlay visible={notificationQuery.isFetching} />
         {(notificationQuery.data?.results?.length ?? 0) == 0 && (
@@ -89,8 +90,8 @@ export function NotificationDrawer({
           </Alert>
         )}
         {notificationQuery.data?.results?.map((notification: any) => (
-          <Group position="apart" key={notification.pk}>
-            <Stack spacing="3">
+          <Group justify="space-between" key={notification.pk}>
+            <Stack gap="3">
               {notification?.target?.link ? (
                 <Text
                   size="sm"
