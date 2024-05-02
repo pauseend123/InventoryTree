@@ -337,7 +337,7 @@ export default function BuildDetail() {
         actions={[
           {
             icon: <IconFileTypePdf />,
-            name: t`Report`,
+            name: t`Build Order Report`,
             tooltip: t`Print build report`
           }
         ]}

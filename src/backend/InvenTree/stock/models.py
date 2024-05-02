@@ -31,7 +31,6 @@ import InvenTree.helpers
 import InvenTree.models
 import InvenTree.ready
 import InvenTree.tasks
-import label.models
 import report.models
 from company import models as CompanyModels
 from InvenTree.fields import InvenTreeModelMoneyField, InvenTreeURLField
@@ -107,7 +106,9 @@ class StockLocationManager(TreeManager):
 
 
 class StockLocation(
-    InvenTree.models.InvenTreeBarcodeMixin, InvenTree.models.InvenTreeTree
+    InvenTree.models.InvenTreeBarcodeMixin,
+    InvenTree.models.InvenTreeReportMixin,
+    InvenTree.models.InvenTreeTree,
 ):
     """Organization tree for StockItem objects.
 
@@ -141,6 +142,15 @@ class StockLocation(
     def get_api_url():
         """Return API url."""
         return reverse('api-location-list')
+
+    def report_context(self):
+        """Return report context data for this StockLocation."""
+        return {
+            'location': self,
+            'stock_location': self,
+            'stock_items': self.get_stock_items(),
+            'qr_data': self.format_barcode(brief=True),
+        }
 
     custom_icon = models.CharField(
         blank=True,
@@ -354,6 +364,7 @@ def default_delete_on_deplete():
 class StockItem(
     InvenTree.models.InvenTreeBarcodeMixin,
     InvenTree.models.InvenTreeNotesMixin,
+    InvenTree.models.InvenTreeReportMixin,
     InvenTree.models.MetadataMixin,
     InvenTree.models.PluginValidationMixin,
     common.models.MetaMixin,
@@ -394,6 +405,48 @@ class StockItem(
     def api_instance_filters(self):
         """Custom API instance filters."""
         return {'parent': {'exclude_tree': self.pk}}
+
+    def get_test_keys(self, include_installed=True):
+        """Construct a flattened list of test 'keys' for this StockItem."""
+        keys = []
+
+        for test in self.part.getTestTemplates(required=True):
+            if test.key not in keys:
+                keys.append(test.key)
+
+        for test in self.part.getTestTemplates(required=False):
+            if test.key not in keys:
+                keys.append(test.key)
+
+        for result in self.testResultList(include_installed=include_installed):
+            if result.key not in keys:
+                keys.append(result.key)
+
+        return list(keys)
+
+    def report_context(self):
+        """Generate custom report context data for this StockItem."""
+        return {
+            'item': self,
+            'stock_item': self,
+            'serial': self.serial,
+            'quantity': InvenTree.helpers.normalize(self.quantity),
+            'barcode_data': self.barcode_data,
+            'barcode_hash': self.barcode_hash,
+            'qr_data': self.format_barcode(brief=True),
+            'qr_url': self.get_absolute_url(),
+            'part': self.part,
+            'name': self.part.full_name,
+            'ipn': self.part.IPN,
+            'parameters': self.part.parameters_map(),
+            'tests': self.testResultMap(),
+            'test_keys': self.get_test_keys(),
+            'test_template_list': self.part.getTestTemplates(),
+            'test_template_map': self.part.getTestTemplateMap(),
+            'results': self.testResultMap(include_installed=True),
+            'result_list': self.testResultList(include_installed=True),
+            'installed_items': self.get_installed_items(cascade=True),
+        }
 
     tags = TaggableManager(blank=True)
 
@@ -2172,50 +2225,6 @@ class StockItem(
         status = self.requiredTestStatus()
 
         return status['passed'] >= status['total']
-
-    def available_test_reports(self):
-        """Return a list of TestReport objects which match this StockItem."""
-        reports = []
-
-        item_query = StockItem.objects.filter(pk=self.pk)
-
-        for test_report in report.models.TestReport.objects.filter(enabled=True):
-            # Attempt to validate report filter (skip if invalid)
-            try:
-                filters = InvenTree.helpers.validateFilterString(test_report.filters)
-                if item_query.filter(**filters).exists():
-                    reports.append(test_report)
-            except (ValidationError, FieldError):
-                continue
-
-        return reports
-
-    @property
-    def has_test_reports(self):
-        """Return True if there are test reports available for this stock item."""
-        return len(self.available_test_reports()) > 0
-
-    def available_labels(self):
-        """Return a list of Label objects which match this StockItem."""
-        labels = []
-
-        item_query = StockItem.objects.filter(pk=self.pk)
-
-        for lbl in label.models.StockItemLabel.objects.filter(enabled=True):
-            try:
-                filters = InvenTree.helpers.validateFilterString(lbl.filters)
-
-                if item_query.filter(**filters).exists():
-                    labels.append(lbl)
-            except (ValidationError, FieldError):
-                continue
-
-        return labels
-
-    @property
-    def has_labels(self):
-        """Return True if there are any label templates available for this stock item."""
-        return len(self.available_labels()) > 0
 
 
 @receiver(pre_delete, sender=StockItem, dispatch_uid='stock_item_pre_delete_log')

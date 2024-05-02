@@ -41,7 +41,7 @@ const defaultLabelTemplates = {
  * - Request printed labels
  *
  * Required options:
- * - url: The list URL for the particular template type
+ * - model_type: The "type" of label template to print against
  * - items: The list of items to be printed
  * - key: The key to use in the query parameters
  * - plural_name: The plural name of the item type
@@ -56,15 +56,59 @@ function printLabels(options) {
         return;
     }
 
+    // Join the items with a comma character
+    const item_string = options.items.join(',');
+
     let params = {
         enabled: true,
+        model_type: options.model_type,
+        items: item_string,
     };
 
-    params[options.key] = options.items;
+    constructForm('{% url "api-label-print" %}', {
+        method: 'POST',
+        title: '{% trans "Print Label" %}',
+        fields: {
+            template: {
+                filters: {
+                    enabled: true,
+                    model_type: options.model_type,
+                    items: item_string,
+                }
+            },
+            plugin: {
+                filters: {
+                    active: true,
+                    mixin: 'labels',
+                }
+            },
+            items: {
+                hidden: true,
+                value: options.items
+            }
+        },
+        onSuccess: function(response) {
+            if (response.complete) {
+                if (response.output) {
+                    window.open(response.output, '_blank');
+                } else {
+                    showMessage('{% trans "Labels sent to printer" %}', {
+                        style: 'success'
+                    });
+                }
+            } else {
+                showMessage('{% trans "Label printing failed" %}', {
+                    style: 'warning',
+                });
+            }
+        }
+    });
+
+    return;
 
     // Request a list of available label templates from the server
     let labelTemplates = [];
-    inventreeGet(options.url, params, {
+    inventreeGet('{% url "api-label-template-list" %}', params, {
         async: false,
         success: function (response) {
             if (response.length == 0) {
@@ -102,8 +146,8 @@ function printLabels(options) {
     const updateFormUrl = (formOptions) => {
         const plugin = getFormFieldValue("_plugin", formOptions.fields._plugin, formOptions);
         const labelTemplate = getFormFieldValue("_label_template", formOptions.fields._label_template, formOptions);
-        const params = $.param({ plugin, [options.key]: options.items })
-        formOptions.url = `${options.url}${labelTemplate ?? "1"}/print/?${params}`;
+        const params = $.param({ plugin, items: item_string })
+        formOptions.url = `{% url "api-label-template-list" %}${labelTemplate ?? "1"}/print/?${params}`;
     }
 
     const updatePrintingOptions = (formOptions) => {
@@ -180,9 +224,10 @@ function printLabels(options) {
             },
         },
         onSuccess: (response) => {
-            if (response.file) {
+            let output = response.output ?? response.file;
+            if (output) {
                 // Download the generated file
-                window.open(response.file);
+                window.open(output, '_blank');
             } else {
                 showMessage('{% trans "Labels sent to printer" %}', {
                     style: 'success',

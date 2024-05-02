@@ -87,6 +87,8 @@ def content_excludes(
         'common.notificationentry',
         'common.notificationmessage',
         'user_sessions.session',
+        'report.labeloutput',
+        'report.reportoutput',
     ]
 
     # Optionally exclude user auth data

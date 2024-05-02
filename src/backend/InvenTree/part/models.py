@@ -7,7 +7,7 @@ import hashlib
 import logging
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 
 from django.conf import settings
@@ -340,6 +340,7 @@ class PartManager(TreeManager):
 class Part(
     InvenTree.models.InvenTreeBarcodeMixin,
     InvenTree.models.InvenTreeNotesMixin,
+    InvenTree.models.InvenTreeReportMixin,
     InvenTree.models.MetadataMixin,
     InvenTree.models.PluginValidationMixin,
     MPTTModel,
@@ -409,8 +410,26 @@ class Part(
         """Return API query filters for limiting field results against this instance."""
         return {'variant_of': {'exclude_tree': self.pk}}
 
+    def report_context(self):
+        """Return custom report context information."""
+        return {
+            'part': self,
+            'category': self.category,
+            'bom_items': self.get_bom_items(),
+            'name': self.name,
+            'description': self.description,
+            'IPN': self.IPN,
+            'revision': self.revision,
+            'qr_data': self.format_barcode(brief=True),
+            'qr_url': self.get_absolute_url(),
+            'parameters': self.parameters_map(),
+        }
+
     def get_context_data(self, request, **kwargs):
-        """Return some useful context data about this part for template rendering."""
+        """Return some useful context data about this part for template rendering.
+
+        TODO: 2024-04-21 - Remove this method once the legacy UI code is removed
+        """
         context = {}
 
         context['disabled'] = not self.active

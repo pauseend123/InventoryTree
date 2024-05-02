@@ -45,7 +45,14 @@ import users.models
 logger = logging.getLogger('inventree')
 
 
-class Build(InvenTree.models.InvenTreeBarcodeMixin, InvenTree.models.InvenTreeNotesMixin, InvenTree.models.MetadataMixin, InvenTree.models.PluginValidationMixin, InvenTree.models.ReferenceIndexingMixin, MPTTModel):
+class Build(
+    InvenTree.models.InvenTreeBarcodeMixin,
+    InvenTree.models.InvenTreeNotesMixin,
+    InvenTree.models.InvenTreeReportMixin,
+    InvenTree.models.MetadataMixin,
+    InvenTree.models.PluginValidationMixin,
+    InvenTree.models.ReferenceIndexingMixin,
+    MPTTModel):
     """A Build object organises the creation of new StockItem objects from other existing StockItem objects.
 
     Attributes:
@@ -132,6 +139,21 @@ class Build(InvenTree.models.InvenTreeBarcodeMixin, InvenTree.models.InvenTreeNo
             raise ValidationError({
                 'part': _('Build order part cannot be changed')
             })
+
+    def report_context(self) -> dict:
+        """Generate custom report context data."""
+
+        return {
+            'build': self,
+            'part': self.part,
+            'build_outputs': self.build_outputs.all(),
+            'line_items': self.build_lines.all(),
+            'bom_items': self.part.get_bom_items(),
+            'reference': self.reference,
+            'quantity': self.quantity,
+            'title': str(self)
+        }
+
 
     @staticmethod
     def filterByDate(queryset, min_date, max_date):
@@ -1276,7 +1298,7 @@ class BuildOrderAttachment(InvenTree.models.InvenTreeAttachment):
     build = models.ForeignKey(Build, on_delete=models.CASCADE, related_name='attachments')
 
 
-class BuildLine(InvenTree.models.InvenTreeModel):
+class BuildLine(InvenTree.models.InvenTreeReportMixin, InvenTree.models.InvenTreeModel):
     """A BuildLine object links a BOMItem to a Build.
 
     When a new Build is created, the BuildLine objects are created automatically.
@@ -1302,6 +1324,19 @@ class BuildLine(InvenTree.models.InvenTreeModel):
     def get_api_url():
         """Return the API URL used to access this model"""
         return reverse('api-build-line-list')
+
+    def report_context(self):
+        """Generate custom report context for this BuildLine object."""
+
+        return {
+            'build_line': self,
+            'build': self.build,
+            'bom_item': self.bom_item,
+            'part': self.bom_item.sub_part,
+            'quantity': self.quantity,
+            'allocated_quantity': self.allocated_quantity,
+            'allocations': self.allocations,
+        }
 
     build = models.ForeignKey(
         Build, on_delete=models.CASCADE,
