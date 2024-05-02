@@ -2,7 +2,8 @@ import { t } from '@lingui/macro';
 import { Flex, NumberInput, Skeleton, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense, useCallback, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { api } from '../App';
 import { ActionButton } from '../components/buttons/ActionButton';
@@ -21,6 +22,7 @@ import {
   useCreateApiFormModal,
   useDeleteApiFormModal
 } from '../hooks/UseForm';
+import { useGenerator } from '../hooks/UseGenerator';
 import { apiUrl } from '../states/ApiState';
 
 /**
@@ -34,15 +36,28 @@ export function useStockFields({
   const [part, setPart] = useState<number | null>(null);
   const [supplierPart, setSupplierPart] = useState<number | null>(null);
 
+  const [batchCode, setBatchCode] = useState<string>('');
+
+  const batchGenerator = useGenerator(
+    ApiEndpoints.stock_generate_batch_code,
+    'batch_code',
+    (value: any) => {
+      if (!batchCode) {
+        setBatchCode(value);
+      }
+    }
+  );
+
   return useMemo(() => {
     const fields: ApiFormFieldSet = {
       part: {
         value: part,
         disabled: !create,
-        onValueChange: (change) => {
-          setPart(change);
+        onValueChange: (value) => {
+          setPart(value);
           // TODO: implement remaining functionality from old stock.py
 
+          batchGenerator.update({ part: value });
           // Clear the 'supplier_part' field if the part is changed
           setSupplierPart(null);
         }
@@ -50,7 +65,9 @@ export function useStockFields({
       supplier_part: {
         // TODO: icon
         value: supplierPart,
-        onValueChange: setSupplierPart,
+        onValueChange: (value) => {
+          setSupplierPart(value);
+        },
         filters: {
           part_detail: true,
           supplier_detail: true,
@@ -70,6 +87,9 @@ export function useStockFields({
       },
       location: {
         hidden: !create,
+        onValueChange: (value) => {
+          batchGenerator.update({ location: value });
+        },
         filters: {
           structural: false
         }
@@ -77,7 +97,10 @@ export function useStockFields({
       },
       quantity: {
         hidden: !create,
-        description: t`Enter initial quantity for this stock item`
+        description: t`Enter initial quantity for this stock item`,
+        onValueChange: (value) => {
+          batchGenerator.update({ quantity: value });
+        }
       },
       serial_numbers: {
         // TODO: icon
@@ -93,6 +116,8 @@ export function useStockFields({
       },
       batch: {
         // TODO: icon
+        value: batchCode,
+        onValueChange: (value) => setBatchCode(value)
       },
       status: {},
       expiry_date: {
@@ -120,7 +145,7 @@ export function useStockFields({
     // TODO: refer to stock.py in original codebase
 
     return fields;
-  }, [part, supplierPart]);
+  }, [part, supplierPart, batchCode]);
 }
 
 /**
@@ -143,7 +168,6 @@ function StockItemDefaultMove({
   stockItem: any;
   value: any;
 }) {
-  console.log('item', stockItem);
   const { data } = useSuspenseQuery({
     queryKey: [
       'location',

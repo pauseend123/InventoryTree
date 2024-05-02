@@ -1,10 +1,13 @@
 """InvenTree API version information."""
 
 # InvenTree API version
-INVENTREE_API_VERSION = 193
+INVENTREE_API_VERSION = 194
 """Increment this API version number whenever there is a significant change to the API that any clients need to know about."""
 
 INVENTREE_API_TEXT = """
+
+v194 - 2024-05-02 : https://github.com/inventree/InvenTree/pull/7000
+    - Adds API endpoint for generating custom batch codes
 
 v193 - 2024-04-30 : https://github.com/inventree/InvenTree/pull/7144
     - Adds "assigned_to" filter to PurchaseOrder / SalesOrder / ReturnOrder API endpoints
